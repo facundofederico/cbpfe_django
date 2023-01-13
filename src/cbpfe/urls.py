@@ -15,13 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from dashboard.views import home_view
+from .views import home_view
 from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
-    path('', home_view),
+    path('', home_view, name='home'),
     path('admin/', admin.site.urls),
+    path('dashboard/', include('dashboard.urls')),
     path('upload/', include('file_loader.urls'))
 ]
 

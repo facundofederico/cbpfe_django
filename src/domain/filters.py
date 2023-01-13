@@ -19,7 +19,7 @@ def __get_filter_for_level(level: int, cluster_per_level: list[int], data: DataF
     
     return filter
 
-def get_filter(current_level: int, cluster_per_level: list[int], data: DataFrame) -> list[bool]:
+def get_filter(current_level: int, cluster_chosen_per_level: list[int], data: DataFrame) -> list[bool]:
     """
     Generates the boolean array used to filter the pareto-front for the clusters choosen for each level
     :param current_level: current level of clustering zoom.
@@ -30,7 +30,7 @@ def get_filter(current_level: int, cluster_per_level: list[int], data: DataFrame
     filter = [True] * len(data)
 
     for i in range(current_level):
-        filter = logical_and(__get_filter_for_level(i+1, cluster_per_level, data), filter)
+        filter = logical_and(__get_filter_for_level(i+1, cluster_chosen_per_level, data), filter)
         if not(any(filter)):
             #An exception is raised if the resulting boolean array is all False
             raise Exception("There are no solutions that fulfill all restrictions")
